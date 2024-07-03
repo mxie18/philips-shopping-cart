@@ -1,19 +1,21 @@
 from flask import Flask
-from db.db_helpers import exec_db_query
-from blueprints.cart.cart import cart_blueprint
-
-app = Flask(__name__)
+from blueprints.cart import cart_blueprint
+from db.db_helpers import DatabaseHelper
 
 
-@app.get("/")
-def base():
-    return "Server is running!"
+class Server:
+    def __init__(self):
+        self._app = Flask(__name__)
+        self.register_blueprints()
 
+    @property
+    def app(self):
+        return self._app
 
-app.register_blueprint(cart_blueprint, url_prefix="/cart")
+    def register_blueprints(self):
+        self.app.register_blueprint(cart_blueprint)
 
 
 if __name__ == "server":
-    exec_db_query(
-        """CREATE TABLE IF NOT EXISTS cart (id SERIAL PRIMARY KEY, name TEXT, price NUMERIC, quantity NUMERIC)"""
-    )
+    app = Server().app
+    DatabaseHelper().create_table()

@@ -46,12 +46,14 @@ flask run
 
 ## How to Test
 
-I'm going to demonstrate how to test the API using Postman.
+You can test the API using Postman.
 
-To add an item to the cart, send a POST request to `http://localhost:5000/cart/add` with the object data in JSON format. Note that name, price, and quantity are required properties.
+Send a GET request to `http://localhost:5000/cart/items` to view the items in the cart.
 
-![](public/add_cart.png)
+Send a POST request with a JSON body to `http://localhost:5000/cart/items` to add an item to the cart.
 
-To view all items in the cart, send a GET request to `http://localhost:5000/cart/view`.
+Additionally, I have added a few unit tests to ensure the basic routes we've defined are working. These can be run using the following command.
 
-![](public/view_cart.png)
+```
+py -m pytest
+```

@@ -2,3 +2,4 @@ flask
 jsonschema
 psycopg2
 python-dotenv
+pytest
